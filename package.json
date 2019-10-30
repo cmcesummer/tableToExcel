@@ -1,0 +1,23 @@
+{
+    "name": "table-to-excel",
+    "version": "1.0.0",
+    "description": "it's a javascript plugin to convert and download html tables to a xlsx-file",
+    "main": "build/dist/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "tsc -w"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cmcesummer/tableToExcel.git"
+    },
+    "author": "cmce",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/cmcesummer/tableToExcel/issues"
+    },
+    "homepage": "https://github.com/cmcesummer/tableToExcel#readme",
+    "devDependencies": {
+        "typescript": "^3.6.4"
+    }
+}

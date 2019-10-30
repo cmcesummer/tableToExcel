@@ -1,0 +1,33 @@
+{
+    "prettier.printWidth": 160,
+    "liveServer.settings.port": 7001,
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "build/": true,
+        "temp/": true,
+        "library/": true,
+        "**/*.anim": true
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/*.meta": true,
+        "library/": true,
+        "local/": true,
+        "temp/": true
+    },
+    "[javascript]": {
+        "editor.tabSize": 4
+    },
+    "editor.detectIndentation": false,
+    "editor.smoothScrolling": true,
+    "prettier.tabWidth": 4,
+    "editor.formatOnSave": true,
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "emmet.syntaxProfiles": {
+        "javascript": "jsx"
+    }
+}
