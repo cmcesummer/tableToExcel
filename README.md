@@ -25,7 +25,7 @@ interface ITableProp {
 ### dataSource
 
 ```js
-const TableToExcel = require("table-to-excel");
+const TableToExcel = require("@soyzr/table-to-excel");
 
 new TableToExcel({
     filename: "table转excel表格",
@@ -41,7 +41,7 @@ new TableToExcel({
 1. HTMLElement
 
 ```js
-const TableToExcel = require("table-to-excel");
+const TableToExcel = require("@soyzr/table-to-excel");
 
 const table = document.querySelector("table");
 
@@ -62,7 +62,7 @@ btn.addEventListener(
 2. string
 
 ```js
-const TableToExcel = require("table-to-excel");
+const TableToExcel = require("@soyzr/table-to-excel");
 
 const table = `
 <table>
@@ -90,3 +90,7 @@ new TableToExcel({
     table
 });
 ```
+
+## 其他一些记录
+
+scoped 包发布时默认是私有包，但是发布失败， 需要改为公共发布`npm publish --access public`

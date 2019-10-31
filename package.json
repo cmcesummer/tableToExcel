@@ -1,18 +1,29 @@
 {
-    "name": "table-to-excel",
-    "version": "1.0.0",
-    "description": "it's a javascript plugin to convert and download html tables to a xlsx-file",
-    "main": "build/dist/index.js",
+    "name": "@soyzr/table-to-excel",
+    "version": "1.1.2",
+    "description": "it's a javascript plugin to convert and download html tables or data to a xlsx-file",
+    "main": "dist/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "tsc -w",
         "build": "rollup -c"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/cmcesummer/tableToExcel.git"
     },
-    "author": "cmce",
+    "keywords": [
+        "table to excel",
+        "table",
+        "excel",
+        "js excel",
+        "html to excel",
+        "data to excel"
+    ],
+    "files": [
+        "dist",
+        "test"
+    ],
+    "author": "soyzr",
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/cmcesummer/tableToExcel/issues"
@@ -21,6 +32,7 @@
     "devDependencies": {
         "rollup": "^1.26.0",
         "rollup-plugin-typescript2": "^0.24.3",
+        "rollup-plugin-uglify": "^6.0.3",
         "typescript": "^3.6.4"
     }
 }
