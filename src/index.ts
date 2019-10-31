@@ -31,18 +31,18 @@ function joinDataToString(data: IDataArray, hname: string, tname: string) {
 }
 
 export default class TableToExcel {
-    callback: ICB;
+    private callback: ICB;
 
     constructor(obj: ITableProp) {
         const { filename = Date.now() + "", dataSource, table, callback = () => {} } = obj;
         this.callback = callback;
-        if (!dataSource || dataSource.body.length === 0 || !table) {
+        if ((!dataSource || dataSource.body.length === 0) && !table) {
             this.callback("缺少table或dataSource");
         }
         if (typeof table === "string") {
             this.stringTrans(table, filename);
         } else if (typeof table === "object" && table.nodeType === 1 && typeof table.nodeName === "string") {
-            this.elementTrans(table, name);
+            this.elementTrans(table, filename);
         } else if (typeof dataSource === "object" && Array.isArray(dataSource.body) && dataSource.body.length > 0) {
             // param.length;
             this.dataSourceTrans(dataSource, filename);
@@ -81,6 +81,7 @@ export default class TableToExcel {
     }
 
     private core(template: string, name: string) {
+        console.log(name);
         try {
             const excelBlob = new Blob([template], { type: "application/vnd.ms-excel" });
             const filename = `${name}.xls`;

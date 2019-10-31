@@ -6,8 +6,8 @@
         "target": "es5",
         "lib": ["es6", "es2016", "dom"],
         "sourceMap": true,
-        "allowJs": true,
         "jsx": "react",
+        "declaration": true,
         "moduleResolution": "node",
         "rootDir": "src",
         "forceConsistentCasingInFileNames": true,
@@ -20,5 +20,5 @@
         "experimentalDecorators": true,
         "skipLibCheck": true
     },
-    "exclude": ["node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest", "src/setupTests.ts", "public"]
+    "exclude": ["node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest", "rollup.config.js", "src/setupTests.ts", "public"]
 }
