@@ -7,10 +7,12 @@ interface IDataSource {
     body: IDataArray;
 }
 
+type IDOM = HTMLElement | Element;
+
 interface ITableProp {
     filename?: string;
     dataSource?: IDataSource;
-    table?: string | HTMLElement;
+    table?: string | IDOM;
     callback?: ICB;
 }
 
@@ -59,7 +61,7 @@ export default class TableToExcel {
         return this.stringTrans(html, name);
     }
 
-    private elementTrans(ele: HTMLElement, name: string) {
+    private elementTrans(ele: IDOM, name: string) {
         return this.stringTrans(ele.outerHTML, name);
     }
 
