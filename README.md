@@ -79,8 +79,8 @@ const table = `
             <td>张三</td>
             <td>男</td>
             <td>18</td>
-            <td>20191030</td>
-        </tr>
+            <td>2019103 0</td>
+        </tr> 
     </tbody>
 </table>
 `;
