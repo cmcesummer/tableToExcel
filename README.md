@@ -2,6 +2,8 @@
 
 ## API
 
+typescript interface
+
 ```ts
 type IDataArray = Array<any[]>;
 
@@ -20,7 +22,7 @@ interface ITableProp {
 }
 ```
 
-## 示例
+## example
 
 ### dataSource
 
@@ -28,10 +30,10 @@ interface ITableProp {
 const TableToExcel = require("@soyzr/table-to-excel");
 
 new TableToExcel({
-    filename: "table转excel表格",
+    filename: "table_to_excel_list",
     dataSource: {
-        title: [["主要信息", null, null, "其它信息"], ["姓名", "性别", "年龄", "注册时间"]],
-        body: [["张三", "男", 18, new Date()], ["李四", "女", 22, new Date()]]
+        title: [["Message", null, null, "Other"], ["Name", "Sex", "Age", "Time"]],
+        body: [["ZA", "male", 18, new Date()], ["LS", "male", 22, new Date()]]
     }
 });
 ```
@@ -51,7 +53,7 @@ btn.addEventListener(
     "click",
     function() {
         new TableToExcel({
-            filename: "table转excel表格",
+            filename: "table_to_excel_list",
             table
         });
     },
@@ -68,16 +70,16 @@ const table = `
 <table>
     <thead>
         <tr>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>年龄</th>
-            <th>注册时间</th>
+            <th>Name</th>
+            <th>Sex</th>
+            <th>Age</th>
+            <th>Time</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>张三</td>
-            <td>男</td>
+            <td>ZS</td>
+            <td>male</td>
             <td>18</td>
             <td>2019103 0</td>
         </tr> 
@@ -86,13 +88,7 @@ const table = `
 `;
 
 new TableToExcel({
-    filename: "table转excel表格",
+    filename: "table_to_excel_list",
     table
 });
 ```
-
-## 其他一些记录
-
--   scoped 包发布时默认是私有包，但是发布失败， 需要改为公共发布`npm publish --access public`
-
--   [从 TypeScript 视角看 HTML DOM](https://blog.csdn.net/HermitSun/article/details/95780601)
