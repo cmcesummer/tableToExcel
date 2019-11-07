@@ -35,37 +35,48 @@ function joinDataToString(data: IDataArray, hname: string, tname: string) {
 export default class TableToExcel {
     private callback: ICB;
 
+    private htmlString: string;
+
+    private filename: string;
+
     constructor(obj: ITableProp) {
-        const { filename = Date.now() + "", dataSource, table, callback = () => {} } = obj;
+        const { filename = new Date().valueOf() + "", dataSource, table, callback = () => {} } = obj;
         this.callback = callback;
+        this.filename = filename;
         if ((!dataSource || dataSource.body.length === 0) && !table) {
             this.callback("缺少table或dataSource");
         }
         if (typeof table === "string") {
-            this.stringTrans(table, filename);
+            this.stringTrans(table);
         } else if (typeof table === "object" && table.nodeType === 1 && typeof table.nodeName === "string") {
-            this.elementTrans(table, filename);
+            this.elementTrans(table);
         } else if (typeof dataSource === "object" && Array.isArray(dataSource.body) && dataSource.body.length > 0) {
             // param.length;
-            this.dataSourceTrans(dataSource, filename);
+            this.dataSourceTrans(dataSource);
         } else {
             this.callback("table或dataSource格式不正确");
         }
     }
 
-    private dataSourceTrans(data: IDataSource, name: string) {
+    public down(filename?: string) {
+        if (this.htmlString) {
+            this.core(this.htmlString, filename || this.filename);
+        }
+    }
+
+    private dataSourceTrans(data: IDataSource) {
         const { title = [], body } = data;
         const thead = joinDataToString(title, "thead", "th");
         const tbody = joinDataToString(body, "tbody", "td");
         const html = `<table> ${thead} ${tbody} <table>`;
-        return this.stringTrans(html, name);
+        return this.stringTrans(html);
     }
 
-    private elementTrans(ele: IDOM, name: string) {
-        return this.stringTrans(ele.outerHTML, name);
+    private elementTrans(ele: IDOM) {
+        return this.stringTrans(ele.outerHTML);
     }
 
-    private stringTrans(str: string, name: string) {
+    private stringTrans(str: string) {
         const html = `
             <html>
             <head>
@@ -78,12 +89,11 @@ export default class TableToExcel {
             <body>${str}</body>
             </html>  
         `;
-        // return html;
-        this.core(html, name);
+
+        this.htmlString = html;
     }
 
     private core(template: string, name: string) {
-        console.log(name);
         try {
             const excelBlob = new Blob([template], { type: "application/vnd.ms-excel" });
             const filename = `${name}.xls`;
