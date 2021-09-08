@@ -39,62 +39,140 @@
                 </tbody>
             </table>
         </section>
+        <script>
+          var table = document.querySelector("table"),
+              type1 = document.querySelector("#type1"),
+              type2 = document.querySelector("#type2"),
+              type3 = document.querySelector("#type3"),
+              dataSource = {
+                  title: [["主要信息", null, null, "其它信息"], ["姓名", "性别", "年龄", "注册时间"]],
+                  body: [["张三", "男", 18, new Date()], ["李四", "女", 22, new Date()]]
+              },
+              filename = "tabletoexcel",
+              TableToExcel = window.TableToExcel,
+              htmlString =
+                  "<table><thead><tr><th>姓名</th><th>性别</th><th>年龄</th><th>注册时间</th></tr></thead><tbody><tr><td>张三</td><td>男</td><td>18</td><td>20191030</td></tr></tbody></table>";
+                  
+  
+          function stringTrans(str) {
+            const html = `
+                <html>
+                <head>
+                    <meta charset="UTF-8">     
+                    <style>
+                    tr td { border:  1px solid #e8e8e8; height: 40px; text-align: center;}
+                    tr th { background: #fafafa;height: 50px;  border: 1px solid #e8e8e8; color: rgba(0, 0, 0, 0.85);padding: 16px 16px; }
+                    </style>
+                </head>
+                <body> ${str} <\/body>
+                </html>  
+            `;
+            return html;
+          }
+      const excelBlob = new Blob([stringTrans(htmlString)], { type: "application/vnd.ms-excel" });
+
+      function saveFilePicker(excelBlob, name, accept, description = 'file', cb ) {
+          const opts = {
+            suggestedName: name,
+            types: [{
+              description,
+              accept: {[excelBlob.type]: [accept]},
+            }],
+          };
+          window['showSaveFilePicker'](opts)
+            .then((handle) => handle.createWritable())
+            .then((writable) => {
+              writable.write(excelBlob)
+                .then(() => {
+                    console.log('[writable.write finish]');
+                    writable.close().then(() => {
+                      console.log('[writable.close finish]');
+                      if(cb) cb(null, "下载成功");
+                    }).catch((e) => {
+                      if (cb) cb(e)
+                    })
+                }).catch((e) => {
+                  if (cb) cb(e)
+                });
+            }).catch((e) => {
+              if (cb) cb(e)
+            })
+        }
+  
+          type1.addEventListener(
+              "click",
+              function() {
+  
+                const opts = {
+                  suggestedName:'xxxx',
+                  types: [{
+                    description: 'Text file',
+                    accept: {'application/vnd.ms-excel': ['.xls']},
+                  }],
+                };
+                saveFilePicker(excelBlob, 'xxxx', '.xls', (e, m) => {
+                  console.log(e, m)
+                })
+                  // new TableToExcel({
+                  //     filename: "HTMLElement",
+                  //     table: table,
+                  //     callback: function(err, msg) {
+                  //         console.log(err, msg);
+                  //     }
+                  // });
+              },
+              false
+          );
+  
+          type2.addEventListener(
+              "click",
+              function() {
+                  new TableToExcel({
+                      filename: "htmlString",
+                      table: htmlString,
+                      callback: function(err, msg) {
+                          console.log(err, msg);
+                      }
+                  });
+              },
+              false
+          );
+  
+          type3.addEventListener(
+              "click",
+              function() {
+                  new TableToExcel({
+                      filename: "dataSource",
+                      dataSource: dataSource,
+                      callback: function(err, msg) {
+                          console.log(err, msg);
+                      }
+                  }).down();
+              },
+              false
+          );
+
+            function sleep(ms) {
+              return new Promise(function(resolve, reject) {
+                setTimeout(function() {
+                  resolve(ms)
+                }, ms)
+              })
+            }
+
+
+            sleep(1000).then(res => {
+              console.log(res);
+              return sleep(2000)
+            }).then(res => {
+              console.log(res);
+              return sleep(1000)
+            }).then(res => {
+              console.log(res);
+            })
+
+
+      </script>
     </body>
-    <script>
-        var table = document.querySelector("table"),
-            type1 = document.querySelector("#type1"),
-            type2 = document.querySelector("#type2"),
-            type3 = document.querySelector("#type3"),
-            dataSource = {
-                title: [["主要信息", null, null, "其它信息"], ["姓名", "性别", "年龄", "注册时间"]],
-                body: [["张三", "男", 18, new Date()], ["李四", "女", 22, new Date()]]
-            },
-            filename = "tabletoexcel",
-            TableToExcel = window.TableToExcel,
-            htmlString =
-                "<table><thead><tr><th>姓名</th><th>性别</th><th>年龄</th><th>注册时间</th></tr></thead><tbody><tr><td>张三</td><td>男</td><td>18</td><td>20191030</td></tr></tbody></table>";
-
-        type1.addEventListener(
-            "click",
-            function() {
-                console.log(5);
-                new TableToExcel({
-                    filename: "HTMLElement",
-                    table: table,
-                    callback: function(err, msg) {
-                        console.log(err, msg);
-                    }
-                });
-            },
-            false
-        );
-
-        type2.addEventListener(
-            "click",
-            function() {
-                new TableToExcel({
-                    filename: "htmlString",
-                    table: htmlString,
-                    callback: function(err, msg) {
-                        console.log(err, msg);
-                    }
-                });
-            },
-            false
-        );
-
-        type3.addEventListener(
-            "click",
-            function() {
-                new TableToExcel({
-                    filename: "dataSource",
-                    dataSource: dataSource,
-                    callback: function(err, msg) {
-                        console.log(err, msg);
-                    }
-                }).down();
-            },
-            false
-        );
-    </script>
+  
 </html>

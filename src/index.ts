@@ -1,3 +1,5 @@
+import saveFile from './saveFile';
+
 type IDataArray = Array<any[]>;
 
 type ICB = (err: any, data?: any) => any;
@@ -22,7 +24,7 @@ function joinDataToString(data: IDataArray, hname: string, tname: string) {
     for (const tr of data) {
         let str = "<tr>";
         for (const th of tr) {
-            str += `<${tname}>${th ? th : ""}</${tname}>`;
+            str += `<${tname}>${th}</${tname}>`;
         }
         trh += `${str}</tr>`;
     }
@@ -96,16 +98,9 @@ export default class TableToExcel {
     private core(template: string, name: string) {
         try {
             const excelBlob = new Blob([template], { type: "application/vnd.ms-excel" });
-            const filename = `${name}.xls`;
-            if ("msSaveOrOpenBlob" in window.navigator) {
-                window.navigator.msSaveOrOpenBlob(excelBlob, filename);
-            } else {
-                const oA = document.createElement("a");
-                oA.href = URL.createObjectURL(excelBlob);
-                oA.download = filename;
-                oA.click();
-            }
-            this.callback(null, "下载成功");
+            saveFile(excelBlob, name, '.xls', (e:any, m: string) => {
+              this.callback(e, m);
+            })
         } catch (e) {
             this.callback(e);
         }
